@@ -15,6 +15,7 @@
 | M5 费用重算 | 精确计算并分配分币 | `/api/m5` | `app/modules/m5_fees/rules.py` `app/modules/m5_fees/service.py` | `tests/test_m5_fees.py` |
 | M6 账单对照 | 对照账单与损耗异常 | `/api/m6` | `app/modules/m6_bills/rules.py` `app/modules/m6_bills/service.py` | `tests/test_m6_bills.py` |
 | M7 结算批次 | 核对电量行数并复核 | `/api/m7` | `app/modules/m7_batches/rules.py` `app/modules/m7_batches/service.py` | `tests/test_m7_batches.py` |
+| M8 拆分承接 | 执行站点拆分并查询损耗承接 | `/api/m8` | `app/modules/m8_splits/rules.py` `app/modules/m8_splits/service.py` | `tests/test_m8_splits.py` |
 
 ## 陷阱登记
 
@@ -29,6 +30,8 @@
 | TRAP-23 | 分时端点 | 数值或归属错误 | 显式契约和守恒检查 | `app/modules/m3_split/rules.py` | `tests/test_m3_split.py::test_boundary_split` |
 | TRAP-24 | 分币尾差 | 数值或归属错误 | 显式契约和守恒检查 | `app/modules/m5_fees/rules.py` | `tests/test_m5_fees.py::test_pennies_conserved` |
 | TRAP-25 | 费率版本重叠 | 数值或归属错误 | 显式契约和守恒检查 | `app/modules/m2_tariffs/rules.py` | `tests/test_m2_tariffs.py::test_overlap_versions` |
+| TRAP-26 | 拆分重复提交 | 重复计损或当日多份结果 | 内容哈希幂等键与当日唯一生效约束 | `app/store.py` | `tests/test_m8_splits.py::test_reexecute_is_idempotent` |
+| TRAP-27 | 跨段订单 | 电量归属错误 | 匀速假定按交集时长分配并末段修正 | `app/modules/m8_splits/rules.py` | `tests/test_m8_splits.py::test_straddling_order_splits_by_time` |
 
 ## 对账规则
 
